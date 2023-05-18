@@ -1,6 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 const Login = () => {
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+
   return (
     <div className='mt-[3rem]'>
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -58,12 +61,12 @@ const Login = () => {
 
           <p className="mt-10 text-center text-sm text-gray-500">
             Not a member?{' '}
-            <div className="text-sm">
+          </p>
+          <div className="text-sm">
                   <a href="#" className="font-semibold text-slate-600 hover:text-slate-800">
                     Forgot password?
                   </a>
                 </div>
-          </p>
         </div>
       </div>
     </div>
