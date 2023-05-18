@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Blog, { registerUser } from '../api/blog'
+import { registerUser } from '../api/blog'
 
 const Register = () => {
   const [username,setUsername] = useState("");
@@ -74,7 +74,7 @@ const Register = () => {
               </div>
               <div className="mt-2">
                 <input
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e) => setPassword(e.target.value)}
                   id="password"
                   name="password"
                   type="password"
