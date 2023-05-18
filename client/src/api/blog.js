@@ -19,8 +19,7 @@ const registerUser = async (data) => {
 const loginUser = async (data) => {
     try{
         console.log(data)
-        const response = await blog.get('/login',data)
-        console.log(response)
+        const response = await blog.post('/login',data)
         return response.data;
     }
     catch(error){

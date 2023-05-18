@@ -18,7 +18,7 @@ const Register = () => {
       }
 
       const res = await registerUser(data);
-      console.log(data)
+      console.log(res)
 
     }
 

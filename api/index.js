@@ -53,7 +53,7 @@ app.post('/register', async (req, res) => {
     }
 });
 
-app.get('/login', async (req, res) => {    
+app.post('/login', async (req, res) => {    
     const {email, password} = req.body;
     const userDoc = await User.findOne({email});
     const passOk = bcrypt.compareSync(password, userDoc.password);
