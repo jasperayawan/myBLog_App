@@ -3,6 +3,7 @@ const cors = require('cors')
 const dotenv = require("dotenv")
 const mongoose = require('mongoose')
 const bcrypt = require('bcryptjs');
+const jsonwebtoken = require("jsonwebtoken")
 const app = express();
 const salt = bcrypt.genSaltSync(10);
 const User = require('./models/User')
@@ -34,10 +35,7 @@ const connect = async() => {
     }
 }
 
-app.get('/test', (req, res) => {
-    res.json('text ok2');
-})
-
+//create a registration
 
 app.post('/register', async (req, res) => {
     const {username,email,password} = req.body;
@@ -53,4 +51,20 @@ app.post('/register', async (req, res) => {
     catch(e){
         res.status(400).json(e);
     }
+});
+
+app.post('/login', async (req, res) => {    
+    const {email, password} = req.body;
+    const userDoc = await User.findOne({email});
+    const passOk = bcrypt.compareSync(password, userDoc.password);
+    // res.json(passOk)
+    if(passOk){
+        jsonwebtoken.sign({email,id:userDoc. id}, secret, {}, (err,token) => {
+            if(err) throw err;
+            res.cookie('token', token).json('ok')
+        });
+    }else{
+        res.status(400).json('wrong credentials')
+    }
+
 });

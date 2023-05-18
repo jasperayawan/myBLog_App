@@ -1,5 +1,6 @@
 import React from 'react'
 import travel from '../assets/timetotravel.webp'
+import profileUser from '../assets/jasper.jpg'
 
 const Post = () => {
   return (
@@ -11,8 +12,12 @@ const Post = () => {
                 </div>
                 <div className="description flex flex-col gap-4">
                     <h2 className='font-bold'>Time to travel</h2>
-                    <div className="author-prof flex gap-2">
-                        <a href="author" className='text-slate-600 font-bold'>Jasper Ayawan</a>
+                    <div className="author-prof flex justify-start items-center gap-2">
+                        <a href="author" className='flex justify-center items-center gap-2 text-slate-600 font-bold'>
+                            <div className='overflow-hidden rounded-full h-[40px] width-[40px]'>
+                                <img src={profileUser} alt="" className='w-full h-full object-cover'/>
+                            </div>
+                            Jasper Ayawan</a>
                         <time className='text-slate-500'>May 18 2023</time>
                     </div>
                     <p>"Embark on an extraordinary adventure, where vibrant cultures and

@@ -1,8 +1,20 @@
 import React, { useState } from 'react'
+import { loginUser } from '../api/blog';
 
 const Login = () => {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+
+  const login = (e) => {
+    e.preventDefault();
+
+    const data = {
+      email: email,
+      password: password
+    }
+    
+    loginUser(data)
+  }
 
   return (
     <div className='mt-[3rem]'>
@@ -14,7 +26,7 @@ const Login = () => {
             </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6" action="#" method="POST">
+          <form className="space-y-6" action="#" onSubmit={login}>
             <div>
               <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
                 Email address
@@ -23,7 +35,9 @@ const Login = () => {
                 <input
                   id="email"
                   name="email"
+                  value={email}
                   type="email"
+                  onChange={(e) => setEmail(e.target.value)}
                   autoComplete="email"
                   required
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-slate-600 sm:text-sm sm:leading-6"
@@ -41,6 +55,8 @@ const Login = () => {
                 <input
                   id="password"
                   name="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   type="password"
                   autoComplete="current-password"
                   required
