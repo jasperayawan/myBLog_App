@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { registerUser } from '../api/blog'
+import {Link} from 'react-router-dom'
 
 const Register = () => {
   const [username,setUsername] = useState("");
@@ -16,6 +17,7 @@ const Register = () => {
       }
 
       const res = await registerUser(data);
+      console.log(data)
 
     }
 
@@ -96,14 +98,11 @@ const Register = () => {
             </div>
           </form>
 
-          <p className="mt-10 text-center text-sm text-gray-500">
-            Not a member?
-          </p>
-          <div className="text-sm">
-                  <a href="#" className="font-semibold text-slate-600 hover:text-slate-800">
-                    Forgot password?
-                  </a>
-                </div>
+          <div className="text-sm text-end py-2">
+                  <Link to="/login" className="font-semibold text-slate-600 hover:text-slate-800 ">
+                    log in?
+                  </Link>
+            </div>
         </div>
       </div>
     </div>

@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import { loginUser } from '../api/blog';
+import { useNavigate, Link } from 'react-router-dom';
 
 const Login = () => {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const navigate = useNavigate();
 
   const login = async (e) => {
     e.preventDefault();
@@ -16,9 +18,11 @@ const Login = () => {
     const res = await loginUser(data)
       if(res == 'ok'){
         alert('logged in')
+        navigate('/');
       }
       else{
         alert('wrong credentials')
+        navigate('/login')
       }
   }
 
@@ -81,14 +85,11 @@ const Login = () => {
             </div>
           </form>
 
-          <p className="mt-10 text-center text-sm text-gray-500">
-            Not a member?{' '}
-          </p>
-          <div className="text-sm">
-                  <a href="#" className="font-semibold text-slate-600 hover:text-slate-800">
-                    Forgot password?
-                  </a>
-                </div>
+          <div className="text-sm text-end py-2">
+                  <Link to="/register" className="font-semibold text-slate-600 hover:text-slate-800">
+                    Creant an account?
+          </Link>
+          </div>
         </div>
       </div>
     </div>
