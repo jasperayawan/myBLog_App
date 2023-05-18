@@ -5,7 +5,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
 
-  const login = (e) => {
+  const login = async (e) => {
     e.preventDefault();
 
     const data = {
@@ -13,7 +13,13 @@ const Login = () => {
       password: password
     }
     
-    loginUser(data)
+    const res = await loginUser(data)
+      if(res == 'ok'){
+        alert('logged in')
+      }
+      else{
+        alert('wrong credentials')
+      }
   }
 
   return (

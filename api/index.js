@@ -62,6 +62,7 @@ app.post('/login', async (req, res) => {
         jsonwebtoken.sign({email,id:userDoc. id}, secret, {}, (err,token) => {
             if(err) throw err;
             res.cookie('token', token).json('ok')
+            
         });
     }else{
         res.status(400).json('wrong credentials')

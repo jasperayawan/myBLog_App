@@ -9,6 +9,13 @@ const registerUser = async (data) => {
     try{
         console.log(data)
         const response = await blog.post('/register',data)
+        
+        if(response.status === 200){
+            alert('account created')
+        }
+        else{
+            alert('error, server down!')
+        }
         return response.data;
     }
     catch(error){

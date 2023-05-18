@@ -15,7 +15,7 @@ const Register = () => {
         password: password
       }
 
-      await registerUser(data);
+      const res = await registerUser(data);
 
     }
 
