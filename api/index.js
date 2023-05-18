@@ -5,13 +5,14 @@ const mongoose = require('mongoose')
 const bcrypt = require('bcryptjs');
 const app = express();
 const salt = bcrypt.genSaltSync(10);
+const User = require('./models/User')
 const secret = 'hjaw3b2423h8fbadbo1b2'
 
 app.use(cors())
 app.use(express.json());
 
 dotenv.config();
-const port = process.env.PORT || 4000
+const port = process.env.PORT
 
 app.listen(port, () => {
     connect()

@@ -6,6 +6,7 @@ const blog = Axios.create({
 
 const registerUser = async (data) => {
     try{
+        console.log(data)
         const response = await blog.post('/register',data)
         return response.data;
     }
