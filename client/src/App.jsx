@@ -1,13 +1,9 @@
-import Header from "./components/header";
-import Entries from "./components/entries";
-import Footer from "./components/footer";
+import Home from './pages/home'
 
 const App = () => {
   return(
     <>
-      <Header/>
-      <Entries/>
-      <Footer/>
+      <Home/>
     </>
   )
 }
