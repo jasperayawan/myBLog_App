@@ -5,6 +5,7 @@ import Layout from './pages/layout';
 import Post from './components/post';
 import PostContent from './components/postContent';
 import Login from './pages/login';
+import Register from './pages/register';
 
 const App = () => {
   return(
@@ -13,9 +14,7 @@ const App = () => {
         <Route path='/' element={<Layout/>}>
           <Route index element={<PostContent/>}/>
           <Route path='/login' element={<Login/>}/>
-          <Route path='/register' element={
-            <div>registration page</div>
-          }/>
+          <Route path='/register' element={<Register/>}/>
         </Route>
       </Routes>
     </>
