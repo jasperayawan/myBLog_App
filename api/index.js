@@ -3,18 +3,18 @@ const cors = require('cors')
 const dotenv = require("dotenv")
 const mongoose = require('mongoose')
 const bcrypt = require('bcryptjs');
-const jsonwebtoken = require("jsonwebtoken")
-const app = express();
+const jwt = require("jsonwebtoken")
 const salt = bcrypt.genSaltSync(10);
 const User = require('./models/User')
 const secret = 'hjaw3b2423h8fbadbo1b2'
-
-app.use(cors())
-app.use(express.json());
-
+const app = express();
+const cookieParser = require('cookie-parser');
 dotenv.config();
 const port = process.env.PORT
 
+app.use(cors())
+app.use(express.json());
+app.use(cookieParser())
 app.listen(port, () => {
     connect()
     console.log('server listen:', port);
@@ -53,13 +53,13 @@ app.post('/register', async (req, res) => {
     }
 });
 
-app.post('/login', async (req, res) => {    
+app.get('/login', async (req, res) => {    
     const {email, password} = req.body;
     const userDoc = await User.findOne({email});
     const passOk = bcrypt.compareSync(password, userDoc.password);
     // res.json(passOk)
     if(passOk){
-        jsonwebtoken.sign({email,id:userDoc. id}, secret, {}, (err,token) => {
+        jwt.sign({email,id:userDoc. id}, secret, {}, (err,token) => {
             if(err) throw err;
             res.cookie('token', token).json('ok')
             
@@ -69,3 +69,12 @@ app.post('/login', async (req, res) => {
     }
 
 });
+
+app.get('/profile', (req, res) => {
+    const {token} = req.cookies;
+    jwt.verify(token, secret, {}, (err, info) => {
+        if(err) throw err;
+        res.json(info);
+    })
+    
+})

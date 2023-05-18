@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { registerUser } from '../api/blog'
 import {Link} from 'react-router-dom'
+import deve from '../assets/deve.png'
 
 const Register = () => {
   const [username,setUsername] = useState("");
@@ -22,7 +23,8 @@ const Register = () => {
     }
 
   return (
-    <div className='mt-[3rem]'>
+    <div className='grid grid-cols-2'>
+      <div className='mt-[3rem]'>
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
                 <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
@@ -104,6 +106,10 @@ const Register = () => {
                   </Link>
             </div>
         </div>
+      </div>
+    </div>
+      <div className='h-screen'>
+          <img src={deve} alt="" className='h-full'/>
       </div>
     </div>
   )

@@ -19,7 +19,8 @@ const registerUser = async (data) => {
 const loginUser = async (data) => {
     try{
         console.log(data)
-        const response = await blog.post('/login',data)
+        const response = await blog.get('/login',data)
+        console.log(response)
         return response.data;
     }
     catch(error){
@@ -27,7 +28,8 @@ const loginUser = async (data) => {
     }
 }
 
+
 export {
     loginUser,
-    registerUser
+    registerUser,
 }

@@ -7,6 +7,7 @@ import PostContent from './components/postContent';
 import Login from './pages/login';
 import Register from './pages/register';
 import BlogPost from './pages/SEO';
+import Footer from './components/footer';
 
 const App = () => {
   return(

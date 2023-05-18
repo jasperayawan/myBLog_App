@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { loginUser } from '../api/blog';
 import { useNavigate, Link } from 'react-router-dom';
+import deve from '../assets/deve.png'
 
 const Login = () => {
   const [password, setPassword] = useState("");
@@ -16,6 +17,7 @@ const Login = () => {
     }
     
     const res = await loginUser(data)
+    console.log(res)
       if(res == 'ok'){
         alert('logged in')
         navigate('/');
@@ -26,8 +28,11 @@ const Login = () => {
       }
   }
 
+
+
   return (
-    <div className='mt-[3rem]'>
+    <div className='grid grid-cols-2 overflow-hidden'>
+      <div className='mt-[3rem]'>
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
                 <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
@@ -92,6 +97,10 @@ const Login = () => {
           </div>
         </div>
       </div>
+    </div>
+    <div className='relative h-screen'>
+      <img src={deve} alt="" className='h-full'/>
+    </div>
     </div>
   )
 }
