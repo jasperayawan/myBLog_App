@@ -35,7 +35,7 @@ const Header = () => {
               <nav className="flex justify-center items-center gap-4">
                 {email && (
                   <>
-                    <Link to='/'>Create new post</Link>
+                    <Link to='/create'>Create new post</Link>
                     <a href="" onClick={logout} className="bg-slate-800 rounded-md text-white px-3 py-1">logout</a>
                   </>
                 )}

@@ -9,6 +9,7 @@ import Register from './pages/register';
 import BlogPost from './pages/SEO';
 import Footer from './components/footer';
 import { UserContextProvider } from './userContext';
+import CreatePost from './pages/createPost';
 
 const App = () => {
   return(
@@ -19,6 +20,7 @@ const App = () => {
             <BlogPost/>
             </Layout>}>
             <Route index element={<PostContent/>}/>
+            <Route path='/create' element={<CreatePost/>}/>
           </Route>
           <Route path='/login' element={<Login/>}/>
           <Route path='/register' element={<Register/>}/>
