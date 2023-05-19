@@ -10,9 +10,10 @@ const secret = 'hjaw3b2423h8fbadbo1b2'
 const app = express();
 const cookieParser = require('cookie-parser');
 dotenv.config();
-const port = process.env.PORT
 
-app.use(cors())
+const port = process.env.PORT || 4000;
+
+app.use(cors({credentials:true,origin:'http://localhost:5173'}))
 app.use(express.json());
 app.use(cookieParser())
 app.listen(port, () => {
@@ -69,6 +70,10 @@ app.post('/login', async (req, res) => {
     }
 
 });
+
+app.post('/logout', (req, res) => {
+    res.cookie('token','').json('ok');
+})
 
 app.get('/profile', (req, res) => {
     const {token} = req.cookies;

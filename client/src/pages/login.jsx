@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { loginUser } from '../api/blog';
 import { useNavigate, Link } from 'react-router-dom';
 import deve from '../assets/deve.png'
 
@@ -14,14 +13,16 @@ const Login = () => {
     const res = await fetch('http://localhost:4000/login',{
       method: 'POST',
       body: JSON.stringify({email,password}),
-      headers: {'Content-Type':'application/json'}
-    })
+      headers: {'Content-Type':'application/json'},
+      credentials: 'include',
+    });
+
     if(res.status === 200){
       alert('successfully login');
       navigate('/');
     }else{
       alert('server down!')
-      navigate('login')
+      navigate('/login')
     }
   }
 

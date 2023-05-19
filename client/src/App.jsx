@@ -8,19 +8,22 @@ import Login from './pages/login';
 import Register from './pages/register';
 import BlogPost from './pages/SEO';
 import Footer from './components/footer';
+import { UserContextProvider } from './userContext';
 
 const App = () => {
   return(
     <>
-      <Routes>
-        <Route path='/' element={<Layout>
-          <BlogPost/>
-          </Layout>}>
-          <Route index element={<PostContent/>}/>
-        </Route>
-        <Route path='/login' element={<Login/>}/>
-        <Route path='/register' element={<Register/>}/>
-      </Routes>
+      <UserContextProvider>
+        <Routes>
+          <Route path='/' element={<Layout>
+            <BlogPost/>
+            </Layout>}>
+            <Route index element={<PostContent/>}/>
+          </Route>
+          <Route path='/login' element={<Login/>}/>
+          <Route path='/register' element={<Register/>}/>
+        </Routes>
+      </UserContextProvider>
     </>
   )
 }
