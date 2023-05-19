@@ -1,11 +1,13 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom';
 import deve from '../assets/deve.png'
+import { UserContext } from '../userContext';
 
 const Login = () => {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
+  const {setUserInfo} = useContext(UserContext);
 
   const login = async (e) => {
     e.preventDefault();
@@ -19,7 +21,12 @@ const Login = () => {
 
     if(res.status === 200){
       alert('successfully login');
-      navigate('/');
+
+      res.json().then(userInfo => {
+        setUserInfo(userInfo);
+        navigate('/');
+      });
+
     }else{
       alert('server down!')
       navigate('/login')
