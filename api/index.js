@@ -9,6 +9,12 @@ const User = require('./models/User')
 const secret = 'hjaw3b2423h8fbadbo1b2'
 const app = express();
 const cookieParser = require('cookie-parser');
+const multer = require('multer');
+
+//upload middleware
+
+const uploadMiddleware = multer({ dest: 'uploads/' });
+
 dotenv.config();
 
 const port = process.env.PORT || 4000;
@@ -76,6 +82,10 @@ app.post('/login', async (req, res) => {
 
 app.post('/logout', (req, res) => {
     res.cookie('token','').json('ok');
+})
+
+app.post('/post', (req,res) => {
+    
 })
 
 app.get('/profile', (req, res) => {

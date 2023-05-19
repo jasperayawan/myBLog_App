@@ -22,11 +22,26 @@ const CreatePost = () => {
     const [title, setTitle] = useState('');
     const [summary, setsummary] = useState('');
     const [content, setContent] = useState('');
+    const [files, setFiles] = useState('');
    
+    const createNewPost = (e) => {
+        e.preventDefault();
+        const data = new FormData();
+        data.set('title', title);
+        data.set('summary', summary);
+        data.set('content',content);
+        data.set('file', files[0]);
+
+        fetch('http://localhost:4000/post',{
+            method: 'POST',
+            body: data,
+            headers: {'Content-Type':'application/json'},
+        })
+    }
 
   return (
     <div className='max-w-[1024px] mx-auto py-[10rem] px-4'>
-        <form>
+        <form onSubmit={createNewPost}>
             <div className='flex flex-col gap-2 mb-2'>
                 <input 
                     type='title' 
@@ -38,7 +53,10 @@ const CreatePost = () => {
                     placeholder={'Summary'} 
                     value={summary}
                     onChange={(e) => setsummary(e.target.value)}/>
-                <input type="file" />
+                <input 
+                    type="file" 
+                    value={files} 
+                    onChange={(e) => setFiles(e.target.files)}/>
             </div>
                 <ReactQuill 
                     value={content} 
