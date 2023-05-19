@@ -11,23 +11,19 @@ const Login = () => {
   const login = async (e) => {
     e.preventDefault();
 
-    const data = {
-      email: email,
-      password: password
+    const res = await fetch('http://localhost:4000/login',{
+      method: 'POST',
+      body: JSON.stringify({email,password}),
+      headers: {'Content-Type':'application/json'}
+    })
+    if(res.status === 200){
+      alert('successfully login');
+      navigate('/');
+    }else{
+      alert('server down!')
+      navigate('login')
     }
-    
-    const res = await loginUser(data)
-    console.log(res)
-      if(res == 'ok'){
-        alert('logged in')
-        navigate('/');
-      }
-      else{
-        alert('wrong credentials')
-        navigate('/login')
-      }
   }
-
 
 
   return (

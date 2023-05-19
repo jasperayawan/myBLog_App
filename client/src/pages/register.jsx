@@ -1,27 +1,32 @@
 import React, { useState } from 'react'
-import { registerUser } from '../api/blog'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import deve from '../assets/deve.png'
 
 const Register = () => {
   const [username,setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const navigate = useNavigate();
 
-    const register = async (e) => {
-      e.preventDefault();
+  const register = async (e) => {
+    e.preventDefault();
 
-      const data = {
-        username: username,
-        email: email,
-        password: password
-      }
+    const response = await fetch('http://localhost:4000/register', {
+      method: 'POST',
+      body: JSON.stringify({username,email,password}),
+      headers: {'Content-Type':'application/json'},
+    })
 
-      const res = await registerUser(data);
-      console.log(res)
-
+    if(response.status === 200){
+      alert('account successfully created!');
+      navigate('/login');
     }
-
+    else{
+      alert('server down!')
+      navigate('/register')
+    }
+  }
+    
   return (
     <div className='grid grid-cols-2'>
       <div className='mt-[3rem]'>
