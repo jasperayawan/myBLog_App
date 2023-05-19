@@ -10,6 +10,8 @@ import BlogPost from './pages/SEO';
 import Footer from './components/footer';
 import { UserContextProvider } from './userContext';
 import CreatePost from './pages/createPost';
+import PostPage from './pages/postPage';
+import EditPost from './pages/editPost';
 
 const App = () => {
   return(
@@ -21,6 +23,8 @@ const App = () => {
             </Layout>}>
             <Route index element={<PostContent/>}/>
             <Route path='/create' element={<CreatePost/>}/>
+            <Route path='/post/:id' element={<PostPage/>}/>
+            <Route path='/edit/:id' element={<EditPost/>}/>
           </Route>
           <Route path='/login' element={<Login/>}/>
           <Route path='/register' element={<Register/>}/>

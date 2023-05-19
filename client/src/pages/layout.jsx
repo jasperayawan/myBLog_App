@@ -5,10 +5,9 @@ import Footer from '../components/footer'
 
 const Layout = () => {
   return (
-    <main>
+    <main className='pt-[5rem] max-w-[1024px] mx-auto'>
         <Header/>
         <Outlet/>
-        <Footer/>
     </main>
   )
 }

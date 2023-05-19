@@ -1,40 +1,56 @@
-import React, { useState } from 'react'
-import ReactQuill from 'react-quill';
+import React, { useEffect, useState } from 'react'
 import 'react-quill/dist/quill.snow.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Editor from '../editor';
 
 
-const CreatePost = () => {
+const EditPost = () => {
+    const {id} = useParams();
     const [title, setTitle] = useState('');
     const [summary, setsummary] = useState('');
     const [content, setContent] = useState('');
     const [files, setFiles] = useState('');
-    const navigate = useNavigate()
+    const [cover, setCover] = useState('');
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        fetch('http://localhost:4000/post/'+id)
+        .then(res => {
+            res.json().then(postInfo => {
+                setTitle(postInfo.title);
+                setContent(postInfo.content);
+                setsummary(postInfo.summary);
+            })
+        })
+    },[])
    
-    const createNewPost = async (e) => {
+    const updatePost = async (e) => {
         const data = new FormData();
 
         data.set('title', title);
         data.set('summary', summary);
         data.set('content',content);
-        data.set('file', files[0]);
+        data.set('id', id);
+        if(files?.[0]){
+            data.set('file', files?.[0]);
+        }
         e.preventDefault();
 
-        console.log(files)
         const res = await fetch('http://localhost:4000/post',{
-            method: 'POST',
+            method: 'PUT',
             body: data,
             credentials: 'include',
         });
+       
         if(res.status === 200){
-            navigate('/')
+            // navigate('/')
         }
+        
     }
 
   return (
     <div className='max-w-[1024px] mx-auto py-[10rem] px-4'>
-        <form onSubmit={createNewPost}>
+        <form onSubmit={updatePost}>
             <div className='flex flex-col gap-2 mb-2'>
                 <input 
                     type='title' 
@@ -54,13 +70,13 @@ const CreatePost = () => {
                    
                     onChange={(e) => setFiles(e.target.files)}/>
             </div>
-                <Editor value={content} onChange={setContent}/>
+                <Editor onChange={setContent} value={content}/>
             <div className='mt-2'>
               <button
                 type="submit"
                 className="flex w-full justify-center rounded-md bg-slate-800 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-600"
               >
-                Create post
+                Update post
               </button>
             </div>
         </form>
@@ -68,4 +84,4 @@ const CreatePost = () => {
   )
 }
 
-export default CreatePost
+export default EditPost

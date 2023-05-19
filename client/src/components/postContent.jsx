@@ -12,7 +12,7 @@ const PostContent = () => {
     });
   },[])
   return (
-    <div>
+    <div className='pt-[5rem]'>
         {posts.length > 0 && posts.map(post => (
           <Post {...post}/>
         ))}
