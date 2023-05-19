@@ -6,10 +6,13 @@ const bcrypt = require('bcryptjs');
 const jwt = require("jsonwebtoken")
 const salt = bcrypt.genSaltSync(10);
 const User = require('./models/User')
+const Post = require('./models/Post')
 const secret = 'hjaw3b2423h8fbadbo1b2'
 const app = express();
 const cookieParser = require('cookie-parser');
-const multer = require('multer');
+const multer = require('multer')
+//File System
+const fs = require('fs')
 
 //upload middleware
 
@@ -19,6 +22,7 @@ dotenv.config();
 
 const port = process.env.PORT || 4000;
 
+app.use('/uploads', express.static(__dirname + '/uploads')); //__dirname currently running at /uploads
 app.use(cors({credentials:true,origin:'http://localhost:5173'}))
 app.use(express.json());
 app.use(cookieParser())
@@ -84,8 +88,42 @@ app.post('/logout', (req, res) => {
     res.cookie('token','').json('ok');
 })
 
-app.post('/post', (req,res) => {
+app.post('/post', uploadMiddleware.single('file'), async (req,res) => {
+    const {originalname,path} = req.file;
+    const parts = originalname.split('.');
+    const extension = parts[parts.length - 1];
+    const newPath = path+'.'+extension;
+    fs.renameSync(path, newPath);
+
     
+    const {token} = req.cookies;
+
+        //after verified the token we get an info
+
+        jwt.verify(token, secret, {}, async (err, info) => {
+        if(err) throw err;
+        const {title,summary,content} = req.body;
+        const postDoc =  await Post.create({
+        title,
+        summary,
+        content,
+        cover: newPath,
+        //inside the info we h ave the id
+        author: info.id,
+    })
+        res.json(postDoc);
+    })
+
+    
+
+});
+
+app.get('/post', async (req,res) => {
+    
+    res.json(await Post.find().populate('author',['username','email'])
+        .sort({createdAt: -1})
+        .limit(20)
+    );     
 })
 
 app.get('/profile', (req, res) => {

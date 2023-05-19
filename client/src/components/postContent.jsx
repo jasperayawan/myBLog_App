@@ -1,16 +1,21 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Post from './post'
 
 const PostContent = () => {
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    fetch('http://localhost:4000/post').then(res => {
+      res.json().then(posts => {
+        setPosts(posts);
+      });
+    });
+  },[])
   return (
     <div>
-        <div className='mt-[8rem]'>
-            <Post/>
-        </div>
-        <Post/>
-        <div className='mb-[8rem]'>
-            <Post/>
-        </div>
+        {posts.length > 0 && posts.map(post => (
+          <Post {...post}/>
+        ))}
     </div>
   )
 }
