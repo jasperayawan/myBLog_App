@@ -10,7 +10,6 @@ const EditPost = () => {
     const [summary, setsummary] = useState('');
     const [content, setContent] = useState('');
     const [files, setFiles] = useState('');
-    const [cover, setCover] = useState('');
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -26,24 +25,24 @@ const EditPost = () => {
    
     const updatePost = async (e) => {
         const data = new FormData();
+        e.preventDefault();
 
         data.set('title', title);
         data.set('summary', summary);
         data.set('content',content);
-        data.set('id', id);
+        data.set('id', id); 
         if(files?.[0]){
             data.set('file', files?.[0]);
         }
-        e.preventDefault();
 
         const res = await fetch('http://localhost:4000/post',{
             method: 'PUT',
             body: data,
-            credentials: 'include',
+            credentials:'include',
         });
        
-        if(res.status === 200){
-            // navigate('/')
+        if(res.ok){
+            // navigate('/'+id)
         }
         
     }

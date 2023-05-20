@@ -118,7 +118,7 @@ app.post('/post', uploadMiddleware.single('file'), async (req,res) => {
 
 });
 
-app.put('/post', uploadMiddleware.single('file'), (req, res) => {
+app.put('/post', uploadMiddleware.single('file'), async (req, res) => {
     let newPath = null;
     if(req.file){
         const {originalname,path} = req.file;
@@ -132,17 +132,21 @@ app.put('/post', uploadMiddleware.single('file'), (req, res) => {
     jwt.verify(token, secret, {}, async (err, info) => {
         if(err) throw err;
         const {id,title,summary,content} = req.body;
-        const postDoc = await Post.findById(id)
+        const postDoc = await Post.findById(id)  
         const isAuthor = JSON.stringify(postDoc.author) === JSON.stringify(info.id);
-        res.json({isAuthor,postDoc,info});
-    //     const postDoc =  await Post.create({
-    //     title,
-    //     summary,
-    //     content,
-    //     cover: newPath,
-    //     //inside the info we h ave the id
-    //     author: info.id,
-    // })
+        res.json({isAuthor,postDoc,info})
+        if(!isAuthor){
+           alert('invalid author')
+        }
+        
+        await postDoc.update(
+            {
+                title,
+                summary,
+                content,
+                cover: newPath ? newPath : postDoc.cover,
+            });
+    
         res.json(postDoc);
     })
 })
